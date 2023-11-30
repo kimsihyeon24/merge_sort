@@ -18,22 +18,28 @@ void merge(int list[], int left, int mid, int right)
 	i = left; j = mid + 1; k = left;
 	// 분할 정렬된 list의 합병
 	while (i <= mid && j <= right) {
-		compare_count++;
+		
 		if (list[i] <= list[j]) { 
 			sorted[k++] = list[i++]; 
+			
 		}
 		else {
 			sorted[k++] = list[j++]; 
+			compare_count++;
 		}
 	}
 
 	if (i > mid) 	// 남아 있는 레코드의 일괄 복사
-		for (l = j; l <= right; l++) 
+		for (l = j; l <= right; l++) {
 			sorted[k++] = list[l];
+			compare_count++;
+		}
 			
 	else 	// 남아 있는 레코드의 일괄 복사
-		for (l = i; l <= mid; l++) 
+		for (l = i; l <= mid; l++) {
 			sorted[k++] = list[l];
+			compare_count++;
+		}
 			
 	// 배열 sorted[]의 리스트를 배열 list[]로 복사
 	for (l = left; l <= right; l++) {
@@ -50,11 +56,11 @@ void merge_sort(int list[], int left, int right)
 		mid = (left + right) / 2;              // 리스트의 균등분할
 		merge_sort(list, left, mid);     // 부분리스트 정렬
 		merge_sort(list, mid + 1, right);//부분리스트 정렬
-		
-		merge(list, left, mid, right);    // 합병
 		for (int i = 0; i < n; i++) {
 			printf("%d ", list[i]);
 		}
+		merge(list, left, mid, right);    // 합병
+		
 		printf("\n");
 	}
 	
@@ -80,7 +86,8 @@ int main(void)
 		}
 		printf("\n\n");
 
-		merge_sort(list, 0, n-1);
+		printf("Merge Sort\n");
+		merge_sort(list,0, n-1);
 		
 	}
 	printf("Average Move Count : %d\n", move_count / 20); // 이동횟수 출력
